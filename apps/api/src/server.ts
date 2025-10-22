@@ -5,32 +5,36 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import { API_CONFIG } from './config.js';
-import { requestLogger, addRequestId } from './middleware/requestLogger.js';
-import { errorHandler } from './middleware/errorHandler.js';
+import { API_CONFIG } from './config';
+import { requestLogger, addRequestId } from './middleware/requestLogger';
+import { errorHandler } from './middleware/errorHandler';
 
 // Import routes
-import environmentsRouter from './bc/routes/environments.js';
-import itemsRouter from './bc/routes/items.js';
-import locationsRouter from './bc/routes/locations.js';
-import vendorsRouter from './bc/routes/vendors.js';
-import purchaseOrdersRouter from './bc/routes/purchaseOrders.js';
+import environmentsRouter from './bc/routes/environments';
+import itemsRouter from './bc/routes/items';
+import locationsRouter from './bc/routes/locations';
+import vendorsRouter from './bc/routes/vendors';
+import purchaseOrdersRouter from './bc/routes/purchaseOrders';
 
 export function createServer(): express.Application {
   const app = express();
 
   // Security middleware
-  app.use(helmet({
-    crossOriginResourcePolicy: { policy: 'cross-origin' },
-  }));
+  app.use(
+    helmet({
+      crossOriginResourcePolicy: { policy: 'cross-origin' },
+    }),
+  );
 
   // CORS configuration
-  app.use(cors({
-    origin: API_CONFIG.CORS_ORIGIN,
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-  }));
+  app.use(
+    cors({
+      origin: API_CONFIG.CORS_ORIGIN,
+      credentials: true,
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    }),
+  );
 
   // Request ID middleware
   app.use(addRequestId);
@@ -44,7 +48,7 @@ export function createServer(): express.Application {
 
   // Health check endpoint
   app.get('/health', (req, res) => {
-    res.json({ 
+    res.json({
       status: 'ok',
       timestamp: new Date().toISOString(),
       uptime: process.uptime(),
