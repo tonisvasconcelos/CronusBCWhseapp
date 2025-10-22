@@ -8,7 +8,23 @@ import App from '../App';
 vi.mock('../auth/msal', () => ({
   msalInstance: {
     initialize: vi.fn(),
+    getLogger: vi.fn(() => ({
+      error: vi.fn(),
+      warning: vi.fn(),
+      info: vi.fn(),
+      verbose: vi.fn(),
+    })),
+    addEventCallback: vi.fn(),
+    removeEventCallback: vi.fn(),
+    enableAccountStorageEvents: vi.fn(),
+    disableAccountStorageEvents: vi.fn(),
+    getConfiguration: vi.fn(),
+    setConfiguration: vi.fn(),
+    getActiveAccount: vi.fn(),
+    getAllAccounts: vi.fn(),
+    setActiveAccount: vi.fn(),
   },
+  initializeMsal: vi.fn(),
 }));
 
 // Mock React Query
