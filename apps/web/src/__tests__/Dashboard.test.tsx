@@ -7,6 +7,7 @@ import { render, screen } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MsalProvider } from '@azure/msal-react';
 import { PublicClientApplication } from '@azure/msal-browser';
+import { vi } from 'vitest';
 import { Dashboard } from '../pages/Dashboard';
 
 // Mock MSAL
@@ -18,7 +19,7 @@ const msalInstance = new PublicClientApplication({
 });
 
 // Mock API queries
-jest.mock('../api/queries/items', () => ({
+vi.mock('../api/queries/items', () => ({
   useItems: () => ({
     data: { value: [], '@odata.count': 0 },
     isLoading: false,
@@ -31,7 +32,7 @@ jest.mock('../api/queries/items', () => ({
   }),
 }));
 
-jest.mock('../api/queries/purchaseOrders', () => ({
+vi.mock('../api/queries/purchaseOrders', () => ({
   usePurchaseOrders: () => ({
     data: { value: [], '@odata.count': 0 },
     isLoading: false,
