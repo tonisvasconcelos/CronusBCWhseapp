@@ -49,7 +49,6 @@ export function loadConfig(): Config {
 
     if (isBrowser) {
       // In browser, use import.meta.env (Vite)
-      // @ts-expect-error - import.meta is available in browser environments
       const importMeta = import.meta;
       envVars = {
         BC_TENANT_ID: importMeta.env.VITE_BC_TENANT_ID || '',
