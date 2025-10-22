@@ -22,17 +22,20 @@ This is a monorepo built with pnpm workspaces containing:
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd cronusapp-bcwhse-react
    ```
 
 2. **Install dependencies**
+
    ```bash
    pnpm install
    ```
 
 3. **Set up environment variables**
+
    ```bash
    # Copy environment templates
    cp env.example .env
@@ -43,11 +46,13 @@ This is a monorepo built with pnpm workspaces containing:
 4. **Configure your environment variables** (see [Configuration](#configuration) section)
 
 5. **Build the project**
+
    ```bash
    pnpm -r build
    ```
 
 6. **Start development servers**
+
    ```bash
    # Start API server (port 4000)
    pnpm --filter ./apps/api dev
@@ -72,9 +77,11 @@ You need to create two Azure AD app registrations:
 6. Click "Register"
 
 **API Permissions:**
+
 - Microsoft Graph > User.Read (Delegated)
 
 **Authentication:**
+
 - Platform: Single-page application
 - Redirect URIs: `http://localhost:5173`, `https://yourdomain.com`
 - Logout URL: `http://localhost:5173`, `https://yourdomain.com`
@@ -88,9 +95,11 @@ You need to create two Azure AD app registrations:
 5. Click "Register"
 
 **API Permissions:**
+
 - Business Central API > API.Read (Application)
 
 **Certificates & secrets:**
+
 - Create a new client secret
 - Copy the secret value (you'll need this for `AZURE_AD_CLIENT_SECRET_API`)
 
@@ -112,6 +121,7 @@ You need to create two Azure AD app registrations:
 ### Environment Variables
 
 #### Root `.env`
+
 ```env
 # Business Central base config
 BC_TENANT_ID=your-bc-tenant-id
@@ -136,6 +146,7 @@ NODE_ENV=development
 ```
 
 #### API `.env` (`apps/api/.env`)
+
 ```env
 # Business Central base config
 BC_TENANT_ID=your-bc-tenant-id
@@ -157,6 +168,7 @@ LOG_LEVEL=info
 ```
 
 #### Web `.env` (`apps/web/.env`)
+
 ```env
 # Business Central base config
 VITE_BC_TENANT_ID=your-bc-tenant-id
@@ -243,6 +255,7 @@ pnpm format
 ## 🔧 Features
 
 ### Frontend (React)
+
 - **Authentication**: Microsoft Entra ID integration with MSAL
 - **Dashboard**: KPI cards and data tables
 - **Data Management**: Items, Locations, Vendors, Purchase Orders
@@ -251,6 +264,7 @@ pnpm format
 - **Type Safety**: Full TypeScript coverage
 
 ### Backend (Express)
+
 - **OAuth 2.0**: Client credentials flow for BC API access
 - **API Gateway**: Proxy requests to Business Central
 - **Error Handling**: Comprehensive error handling and logging
@@ -258,6 +272,7 @@ pnpm format
 - **Mock Data**: Development mode with mock data
 
 ### Shared Package
+
 - **Type Definitions**: Business Central entity types
 - **OData Builder**: Type-safe query building
 - **Configuration**: Environment validation with Zod
@@ -309,6 +324,7 @@ pnpm --filter ./apps/api start
 ```
 
 **Recommended platforms:**
+
 - Azure App Service
 - Heroku
 - Railway
@@ -398,6 +414,7 @@ For support and questions:
 ## 🔄 Changelog
 
 ### v1.0.0
+
 - Initial release
 - Business Central integration
 - React dashboard
@@ -408,3 +425,6 @@ For support and questions:
 ---
 
 **Built with ❤️ for Business Central integration**
+#   T e s t   d e p l o y m e n t   w i t h   A z u r e   A D   c o n f i g u r a t i o n 
+ 
+ 
