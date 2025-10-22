@@ -48,23 +48,43 @@ export function loadConfig(): Config {
     let envVars: Record<string, string> = {};
 
     if (isBrowser) {
-      // In browser, use import.meta.env (Vite)
-      const importMeta = import.meta;
-      envVars = {
-        BC_TENANT_ID: importMeta.env.VITE_BC_TENANT_ID || '',
-        BC_ENVIRONMENT: importMeta.env.VITE_BC_ENVIRONMENT || '',
-        BC_COMPANY_ID: importMeta.env.VITE_BC_COMPANY_ID || '',
-        BC_BASE_URL:
-          importMeta.env.VITE_BC_BASE_URL || 'https://api.businesscentral.dynamics.com/v2.0',
-        AZURE_AD_TENANT_ID: importMeta.env.VITE_AZURE_AD_TENANT_ID || '',
-        AZURE_AD_CLIENT_ID_SPA: importMeta.env.VITE_AZURE_AD_CLIENT_ID_SPA || '',
-        AZURE_AD_CLIENT_ID_API: importMeta.env.VITE_AZURE_AD_CLIENT_ID_API || '',
-        AZURE_AD_CLIENT_SECRET_API: importMeta.env.VITE_AZURE_AD_CLIENT_SECRET_API || '',
-        VITE_APP_NAME: importMeta.env.VITE_APP_NAME || 'CRONUS WHSE_BC and REACT',
-        VITE_API_BASE_URL: importMeta.env.VITE_API_BASE_URL || 'http://localhost:4000',
-        USE_MOCKS: importMeta.env.VITE_USE_MOCKS || 'false',
-        NODE_ENV: importMeta.env.MODE || 'development',
-      };
+      // In browser, use import.meta.env (Vite) with fallbacks
+      try {
+        const importMeta = import.meta;
+        envVars = {
+          BC_TENANT_ID: importMeta.env?.VITE_BC_TENANT_ID || 'demo-tenant',
+          BC_ENVIRONMENT: importMeta.env?.VITE_BC_ENVIRONMENT || 'demo-environment',
+          BC_COMPANY_ID: importMeta.env?.VITE_BC_COMPANY_ID || 'demo-company',
+          BC_BASE_URL:
+            importMeta.env?.VITE_BC_BASE_URL || 'https://api.businesscentral.dynamics.com/v2.0',
+          AZURE_AD_TENANT_ID: importMeta.env?.VITE_AZURE_AD_TENANT_ID || 'demo-tenant-id',
+          AZURE_AD_CLIENT_ID_SPA: importMeta.env?.VITE_AZURE_AD_CLIENT_ID_SPA || 'demo-client-id',
+          AZURE_AD_CLIENT_ID_API:
+            importMeta.env?.VITE_AZURE_AD_CLIENT_ID_API || 'demo-api-client-id',
+          AZURE_AD_CLIENT_SECRET_API:
+            importMeta.env?.VITE_AZURE_AD_CLIENT_SECRET_API || 'demo-secret',
+          VITE_APP_NAME: importMeta.env?.VITE_APP_NAME || 'CRONUS WHSE_BC and REACT',
+          VITE_API_BASE_URL: importMeta.env?.VITE_API_BASE_URL || 'http://localhost:4000',
+          USE_MOCKS: importMeta.env?.VITE_USE_MOCKS || 'true',
+          NODE_ENV: importMeta.env?.MODE || 'production',
+        };
+      } catch (error) {
+        // Fallback to demo values if import.meta is not available
+        envVars = {
+          BC_TENANT_ID: 'demo-tenant',
+          BC_ENVIRONMENT: 'demo-environment',
+          BC_COMPANY_ID: 'demo-company',
+          BC_BASE_URL: 'https://api.businesscentral.dynamics.com/v2.0',
+          AZURE_AD_TENANT_ID: 'demo-tenant-id',
+          AZURE_AD_CLIENT_ID_SPA: 'demo-client-id',
+          AZURE_AD_CLIENT_ID_API: 'demo-api-client-id',
+          AZURE_AD_CLIENT_SECRET_API: 'demo-secret',
+          VITE_APP_NAME: 'CRONUS WHSE_BC and REACT',
+          VITE_API_BASE_URL: 'http://localhost:4000',
+          USE_MOCKS: 'true',
+          NODE_ENV: 'production',
+        };
+      }
     } else {
       // In Node.js, use process.env
       envVars = {
