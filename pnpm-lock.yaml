@@ -108,6 +108,9 @@ importers:
       '@azure/msal-browser':
         specifier: ^3.5.0
         version: 3.30.0
+      '@azure/msal-react':
+        specifier: ^2.0.0
+        version: 2.2.0(@azure/msal-browser@3.30.0)(react@18.3.1)
       '@cronusapp/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -148,6 +151,9 @@ importers:
       '@testing-library/user-event':
         specifier: ^14.5.1
         version: 14.6.1(@testing-library/dom@9.3.4)
+      '@types/jest':
+        specifier: ^29.5.8
+        version: 29.5.14
       '@types/react':
         specifier: ^18.2.37
         version: 18.3.26
@@ -203,6 +209,15 @@ importers:
         specifier: ^3.22.4
         version: 3.25.76
     devDependencies:
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^6.13.0
+        version: 6.21.0(@typescript-eslint/parser@6.21.0(eslint@8.57.1)(typescript@5.9.3))(eslint@8.57.1)(typescript@5.9.3)
+      '@typescript-eslint/parser':
+        specifier: ^6.13.0
+        version: 6.21.0(eslint@8.57.1)(typescript@5.9.3)
+      eslint:
+        specifier: ^8.54.0
+        version: 8.57.1
       typescript:
         specifier: ^5.3.0
         version: 5.9.3
@@ -276,6 +291,13 @@ packages:
   '@azure/msal-node@3.8.0':
     resolution: {integrity: sha512-23BXm82Mp5XnRhrcd4mrHa0xuUNRp96ivu3nRatrfdAqjoeWAGyD0eEAafxAOHAEWWmdlyFK4ELFcdziXyw2sA==}
     engines: {node: '>=16'}
+
+  '@azure/msal-react@2.2.0':
+    resolution: {integrity: sha512-2V+9JXeXyyjYNF92y5u0tU4el9px/V1+vkRuN+DtoxyiMHCtYQpJoaFdGWArh43zhz5aqQqiGW/iajPDSu3QsQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      '@azure/msal-browser': ^3.27.0
+      react: ^16.8.0 || ^17 || ^18
 
   '@babel/code-frame@7.27.1':
     resolution: {integrity: sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg==}
@@ -4180,6 +4202,11 @@ snapshots:
       '@azure/msal-common': 15.13.0
       jsonwebtoken: 9.0.2
       uuid: 8.3.2
+
+  '@azure/msal-react@2.2.0(@azure/msal-browser@3.30.0)(react@18.3.1)':
+    dependencies:
+      '@azure/msal-browser': 3.30.0
+      react: 18.3.1
 
   '@babel/code-frame@7.27.1':
     dependencies:
