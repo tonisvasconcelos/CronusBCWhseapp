@@ -13,6 +13,7 @@ vi.mock('../auth/msal', () => ({
       warning: vi.fn(),
       info: vi.fn(),
       verbose: vi.fn(),
+      clone: vi.fn(),
     })),
     addEventCallback: vi.fn(),
     removeEventCallback: vi.fn(),
