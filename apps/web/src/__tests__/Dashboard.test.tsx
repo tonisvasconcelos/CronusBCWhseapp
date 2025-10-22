@@ -6,7 +6,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MsalProvider } from '@azure/msal-react';
-import { PublicClientApplication } from 'msal-browser';
+import { PublicClientApplication } from '@azure/msal-browser';
 import { Dashboard } from '../pages/Dashboard';
 
 // Mock MSAL
@@ -50,12 +50,10 @@ const createTestQueryClient = () =>
 
 const TestWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const queryClient = createTestQueryClient();
-  
+
   return (
     <MsalProvider instance={msalInstance}>
-      <QueryClientProvider client={queryClient}>
-        {children}
-      </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </MsalProvider>
   );
 };
@@ -65,7 +63,7 @@ describe('Dashboard', () => {
     render(
       <TestWrapper>
         <Dashboard />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(screen.getByText('Dashboard')).toBeInTheDocument();
@@ -75,7 +73,7 @@ describe('Dashboard', () => {
     render(
       <TestWrapper>
         <Dashboard />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(screen.getByText('Total Items')).toBeInTheDocument();
@@ -88,7 +86,7 @@ describe('Dashboard', () => {
     render(
       <TestWrapper>
         <Dashboard />
-      </TestWrapper>
+      </TestWrapper>,
     );
 
     expect(screen.getByText('Recent Item Ledger Entries')).toBeInTheDocument();

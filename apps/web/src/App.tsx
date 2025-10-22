@@ -2,14 +2,14 @@
  * Main App component
  */
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { AppRoutes } from './routes';
 import { initializeMsal } from './auth/msal';
 
 function App() {
   useEffect(() => {
     // Initialize MSAL when the app starts
-    initializeMsal().catch((error) => {
+    initializeMsal().catch(error => {
       console.error('Failed to initialize MSAL:', error);
     });
   }, []);

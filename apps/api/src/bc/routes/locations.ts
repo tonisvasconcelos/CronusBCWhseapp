@@ -6,7 +6,7 @@ import { Router } from 'express';
 import { bcClient } from '../bcClient.js';
 import type { Location } from '@cronusapp/shared';
 
-const router = Router();
+const router: Router = Router();
 
 /**
  * GET /locations

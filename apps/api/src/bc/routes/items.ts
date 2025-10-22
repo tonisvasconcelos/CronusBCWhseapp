@@ -6,7 +6,7 @@ import { Router } from 'express';
 import { bcClient } from '../bcClient.js';
 import type { Item, ItemCategory, ItemVariant, ItemLedgerEntry } from '@cronusapp/shared';
 
-const router = Router();
+const router: Router = Router();
 
 /**
  * GET /items

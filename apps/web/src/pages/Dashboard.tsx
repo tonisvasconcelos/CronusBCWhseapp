@@ -5,8 +5,8 @@
 import React from 'react';
 import { KPICard } from '../components/ui/KPICard';
 import { DataTable, Column } from '../components/ui/DataTable';
-import { useItems, useItemLedgerEntries, usePurchaseOrders } from '../api/queries/items';
-import { usePurchaseOrders as usePurchaseOrdersQuery } from '../api/queries/purchaseOrders';
+import { useItems, useItemLedgerEntries } from '../api/queries/items';
+import { usePurchaseOrders } from '../api/queries/purchaseOrders';
 import {
   CubeIcon,
   MapPinIcon,
@@ -20,7 +20,7 @@ export const Dashboard: React.FC = () => {
   const { data: itemsData } = useItems({ $top: 1 });
   const { data: locationsData } = useItems({ $top: 1 }); // This should be locations, but using items for demo
   const { data: vendorsData } = useItems({ $top: 1 }); // This should be vendors, but using items for demo
-  const { data: purchaseOrdersData } = usePurchaseOrdersQuery({ $top: 1 });
+  const { data: purchaseOrdersData } = usePurchaseOrders({ $top: 1 });
 
   // Fetch recent data for tables
   const { data: ledgerEntriesData, isLoading: ledgerLoading } = useItemLedgerEntries({
@@ -28,7 +28,7 @@ export const Dashboard: React.FC = () => {
     $orderby: 'postingDate desc',
   });
 
-  const { data: recentPurchaseOrdersData, isLoading: ordersLoading } = usePurchaseOrdersQuery({
+  const { data: recentPurchaseOrdersData, isLoading: ordersLoading } = usePurchaseOrders({
     $top: 10,
     $orderby: 'orderDate desc',
   });
@@ -42,7 +42,7 @@ export const Dashboard: React.FC = () => {
     {
       key: 'postingDate',
       title: 'Posting Date',
-      render: (value) => new Date(value).toLocaleDateString(),
+      render: value => new Date(value).toLocaleDateString(),
     },
     {
       key: 'entryType',
@@ -55,12 +55,12 @@ export const Dashboard: React.FC = () => {
     {
       key: 'quantity',
       title: 'Quantity',
-      render: (value) => value?.toLocaleString(),
+      render: value => value?.toLocaleString(),
     },
     {
       key: 'unitCost',
       title: 'Unit Cost',
-      render: (value) => `$${value?.toFixed(2)}`,
+      render: value => `$${value?.toFixed(2)}`,
     },
   ];
 
@@ -77,19 +77,19 @@ export const Dashboard: React.FC = () => {
     {
       key: 'orderDate',
       title: 'Order Date',
-      render: (value) => new Date(value).toLocaleDateString(),
+      render: value => new Date(value).toLocaleDateString(),
     },
     {
       key: 'status',
       title: 'Status',
-      render: (value) => (
+      render: value => (
         <span
           className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
             value === 'Open'
               ? 'bg-green-100 text-green-800'
               : value === 'Released'
-              ? 'bg-blue-100 text-blue-800'
-              : 'bg-gray-100 text-gray-800'
+                ? 'bg-blue-100 text-blue-800'
+                : 'bg-gray-100 text-gray-800'
           }`}
         >
           {value}
@@ -99,7 +99,7 @@ export const Dashboard: React.FC = () => {
     {
       key: 'amountIncludingTax',
       title: 'Total Amount',
-      render: (value) => `$${value?.toFixed(2)}`,
+      render: value => `$${value?.toFixed(2)}`,
     },
   ];
 
@@ -107,9 +107,7 @@ export const Dashboard: React.FC = () => {
     <div className="space-y-6">
       {/* Page header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Dashboard
-        </h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
         <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
           Overview of your Business Central data
         </p>

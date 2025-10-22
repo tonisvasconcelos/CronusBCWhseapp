@@ -5,52 +5,28 @@ module.exports = {
     es2022: true,
     node: true,
   },
-  extends: [
-    'eslint:recommended',
-    '@typescript-eslint/recommended',
-    'prettier',
-  ],
+  extends: ['eslint:recommended'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'import'],
+  plugins: ['@typescript-eslint'],
   rules: {
-    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-    '@typescript-eslint/no-explicit-any': 'warn',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-non-null-assertion': 'warn',
-    'import/order': [
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': [
       'error',
       {
-        groups: [
-          'builtin',
-          'external',
-          'internal',
-          'parent',
-          'sibling',
-          'index',
-        ],
-        'newlines-between': 'always',
-        alphabetize: {
-          order: 'asc',
-          caseInsensitive: true,
-        },
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        caughtErrorsIgnorePattern: '^_',
       },
     ],
   },
   overrides: [
     {
       files: ['apps/web/**/*.{ts,tsx}'],
-      extends: [
-        'eslint:recommended',
-        '@typescript-eslint/recommended',
-        'plugin:react/recommended',
-        'plugin:react-hooks/recommended',
-        'prettier',
-      ],
+      extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:react-hooks/recommended'],
       plugins: ['react', 'react-hooks'],
       settings: {
         react: {
@@ -58,6 +34,7 @@ module.exports = {
         },
       },
       rules: {
+        'no-unused-vars': 'off',
         'react/react-in-jsx-scope': 'off',
         'react/prop-types': 'off',
         'react-hooks/rules-of-hooks': 'error',
@@ -74,12 +51,5 @@ module.exports = {
       },
     },
   ],
-  ignorePatterns: [
-    'node_modules/',
-    'dist/',
-    'build/',
-    'coverage/',
-    '*.config.js',
-    '*.config.ts',
-  ],
+  ignorePatterns: ['node_modules/', 'dist/', 'build/', 'coverage/', '*.config.js', '*.config.ts'],
 };

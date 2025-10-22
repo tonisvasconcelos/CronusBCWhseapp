@@ -2,7 +2,7 @@
  * MSAL configuration for Microsoft Entra ID authentication
  */
 
-import { PublicClientApplication, Configuration, LogLevel } from 'msal-browser';
+import { PublicClientApplication, Configuration, LogLevel } from '@azure/msal-browser';
 import { getConfig } from '@cronusapp/shared';
 import { getRedirectUri } from '../config/github-pages';
 
@@ -20,7 +20,7 @@ const msalConfig: Configuration = {
   },
   system: {
     loggerOptions: {
-      loggerCallback: (level, message, containsPii) => {
+      loggerCallback: (level: LogLevel, message: string, containsPii: boolean) => {
         if (containsPii) {
           return;
         }

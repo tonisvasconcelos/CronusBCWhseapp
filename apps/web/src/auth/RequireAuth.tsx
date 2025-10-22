@@ -6,14 +6,14 @@ import React, { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useMsal } from '@azure/msal-react';
 import { InteractionStatus } from '@azure/msal-browser';
-import { msalInstance } from './msal';
+// import { msalInstance } from './msal';
 
 interface RequireAuthProps {
   children: React.ReactNode;
 }
 
 export const RequireAuth: React.FC<RequireAuthProps> = ({ children }) => {
-  const { instance, accounts, inProgress } = useMsal();
+  const { instance, inProgress } = useMsal();
   const location = useLocation();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 

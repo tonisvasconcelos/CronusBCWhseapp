@@ -10,7 +10,10 @@ const envSchema = z.object({
   BC_TENANT_ID: z.string().min(1, 'BC_TENANT_ID is required'),
   BC_ENVIRONMENT: z.string().min(1, 'BC_ENVIRONMENT is required'),
   BC_COMPANY_ID: z.string().min(1, 'BC_COMPANY_ID is required'),
-  BC_BASE_URL: z.string().url('BC_BASE_URL must be a valid URL').default('https://api.businesscentral.dynamics.com/v2.0'),
+  BC_BASE_URL: z
+    .string()
+    .url('BC_BASE_URL must be a valid URL')
+    .default('https://api.businesscentral.dynamics.com/v2.0'),
 
   // Azure AD
   AZURE_AD_TENANT_ID: z.string().min(1, 'AZURE_AD_TENANT_ID is required'),
@@ -20,10 +23,16 @@ const envSchema = z.object({
 
   // Frontend
   VITE_APP_NAME: z.string().default('CRONUS WHSE_BC and REACT'),
-  VITE_API_BASE_URL: z.string().url('VITE_API_BASE_URL must be a valid URL').default('http://localhost:4000'),
+  VITE_API_BASE_URL: z
+    .string()
+    .url('VITE_API_BASE_URL must be a valid URL')
+    .default('http://localhost:4000'),
 
   // Development
-  USE_MOCKS: z.string().transform(val => val === 'true').default('false'),
+  USE_MOCKS: z
+    .string()
+    .transform(val => val === 'true')
+    .default('false'),
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
 });
 
@@ -35,24 +44,27 @@ export function loadConfig(): Config {
   try {
     // Check if we're in a browser environment
     const isBrowser = typeof window !== 'undefined';
-    
+
     let envVars: Record<string, string> = {};
-    
+
     if (isBrowser) {
       // In browser, use import.meta.env (Vite)
+      // @ts-expect-error - import.meta is available in browser environments
+      const importMeta = import.meta;
       envVars = {
-        BC_TENANT_ID: import.meta.env.VITE_BC_TENANT_ID || '',
-        BC_ENVIRONMENT: import.meta.env.VITE_BC_ENVIRONMENT || '',
-        BC_COMPANY_ID: import.meta.env.VITE_BC_COMPANY_ID || '',
-        BC_BASE_URL: import.meta.env.VITE_BC_BASE_URL || 'https://api.businesscentral.dynamics.com/v2.0',
-        AZURE_AD_TENANT_ID: import.meta.env.VITE_AZURE_AD_TENANT_ID || '',
-        AZURE_AD_CLIENT_ID_SPA: import.meta.env.VITE_AZURE_AD_CLIENT_ID_SPA || '',
-        AZURE_AD_CLIENT_ID_API: import.meta.env.VITE_AZURE_AD_CLIENT_ID_API || '',
-        AZURE_AD_CLIENT_SECRET_API: import.meta.env.VITE_AZURE_AD_CLIENT_SECRET_API || '',
-        VITE_APP_NAME: import.meta.env.VITE_APP_NAME || 'CRONUS WHSE_BC and REACT',
-        VITE_API_BASE_URL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000',
-        USE_MOCKS: import.meta.env.VITE_USE_MOCKS || 'false',
-        NODE_ENV: import.meta.env.MODE || 'development',
+        BC_TENANT_ID: importMeta.env.VITE_BC_TENANT_ID || '',
+        BC_ENVIRONMENT: importMeta.env.VITE_BC_ENVIRONMENT || '',
+        BC_COMPANY_ID: importMeta.env.VITE_BC_COMPANY_ID || '',
+        BC_BASE_URL:
+          importMeta.env.VITE_BC_BASE_URL || 'https://api.businesscentral.dynamics.com/v2.0',
+        AZURE_AD_TENANT_ID: importMeta.env.VITE_AZURE_AD_TENANT_ID || '',
+        AZURE_AD_CLIENT_ID_SPA: importMeta.env.VITE_AZURE_AD_CLIENT_ID_SPA || '',
+        AZURE_AD_CLIENT_ID_API: importMeta.env.VITE_AZURE_AD_CLIENT_ID_API || '',
+        AZURE_AD_CLIENT_SECRET_API: importMeta.env.VITE_AZURE_AD_CLIENT_SECRET_API || '',
+        VITE_APP_NAME: importMeta.env.VITE_APP_NAME || 'CRONUS WHSE_BC and REACT',
+        VITE_API_BASE_URL: importMeta.env.VITE_API_BASE_URL || 'http://localhost:4000',
+        USE_MOCKS: importMeta.env.VITE_USE_MOCKS || 'false',
+        NODE_ENV: importMeta.env.MODE || 'development',
       };
     } else {
       // In Node.js, use process.env

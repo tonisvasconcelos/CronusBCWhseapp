@@ -14,7 +14,7 @@ export function errorHandler(
   error: AppError,
   req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction,
 ): void {
   const statusCode = error.statusCode || 500;
   const isOperational = error.isOperational || false;
@@ -32,13 +32,13 @@ export function errorHandler(
 
   // Don't leak error details in production
   const isDevelopment = process.env.NODE_ENV === 'development';
-  
+
   const apiError: ApiError = {
     error: {
       code: statusCode.toString(),
       message: isDevelopment ? error.message : 'Internal server error',
       details: isDevelopment ? error.stack : undefined,
-      traceId: req.headers['x-request-id'] as string || generateTraceId(),
+      traceId: (req.headers['x-request-id'] as string) || generateTraceId(),
     },
   };
 
@@ -53,6 +53,5 @@ export function createError(message: string, statusCode: number = 500): AppError
 }
 
 function generateTraceId(): string {
-  return Math.random().toString(36).substring(2, 15) + 
-         Math.random().toString(36).substring(2, 15);
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 }

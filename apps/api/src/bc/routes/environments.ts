@@ -5,7 +5,7 @@
 import { Router } from 'express';
 import { bcClient } from '../bcClient.js';
 
-const router = Router();
+const router: Router = Router();
 
 /**
  * GET /environments

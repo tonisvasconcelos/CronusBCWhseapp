@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
+import React from 'react';
 import App from '../App';
 
 // Mock MSAL
@@ -21,7 +22,7 @@ describe('App', () => {
     render(
       <BrowserRouter>
         <App />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
     // Just check that the component renders without throwing
     expect(document.body).toBeDefined();

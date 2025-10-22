@@ -2,8 +2,8 @@
  * Business Central API client with authentication
  */
 
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { config, buildBcApiUrl } from '@cronusapp/shared';
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import { getConfig, buildBcApiUrl } from '@cronusapp/shared';
 import { tokenProvider } from '../auth/tokenProvider.js';
 import type { ApiResponse, ApiError } from '@cronusapp/shared';
 
@@ -12,19 +12,20 @@ export class BusinessCentralClient {
   private useMocks: boolean;
 
   constructor() {
+    const config = getConfig();
     this.useMocks = config.USE_MOCKS;
-    
+
     this.client = axios.create({
       timeout: 30000,
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
       },
     });
 
     // Add request interceptor to inject auth token
     this.client.interceptors.request.use(
-      async (config) => {
+      async config => {
         if (!this.useMocks) {
           try {
             const token = await tokenProvider.getAccessToken();
@@ -36,15 +37,15 @@ export class BusinessCentralClient {
         }
         return config;
       },
-      (error) => {
+      error => {
         return Promise.reject(error);
-      }
+      },
     );
 
     // Add response interceptor for error handling
     this.client.interceptors.response.use(
-      (response) => response,
-      (error) => {
+      response => response,
+      error => {
         if (error.response) {
           const apiError: ApiError = {
             error: {
@@ -57,7 +58,7 @@ export class BusinessCentralClient {
           return Promise.reject(apiError);
         }
         return Promise.reject(error);
-      }
+      },
     );
   }
 
@@ -69,6 +70,7 @@ export class BusinessCentralClient {
       return this.getMockData<T>(endpoint);
     }
 
+    const config = getConfig();
     const url = buildBcApiUrl(config, endpoint);
     const response: AxiosResponse<ApiResponse<T>> = await this.client.get(url, { params });
     return response.data;
@@ -82,6 +84,7 @@ export class BusinessCentralClient {
       return this.getMockData('environments');
     }
 
+    const config = getConfig();
     const url = `${config.BC_BASE_URL}/${config.BC_TENANT_ID}/environments`;
     const response: AxiosResponse<ApiResponse<any>> = await this.client.get(url);
     return response.data;
@@ -114,7 +117,8 @@ export class BusinessCentralClient {
             name: 'ChemicalsSandbox',
             type: 'Sandbox',
             state: 'Active',
-            webServiceUrl: 'https://api.businesscentral.dynamics.com/v2.0/tenant-id/ChemicalsSandbox',
+            webServiceUrl:
+              'https://api.businesscentral.dynamics.com/v2.0/tenant-id/ChemicalsSandbox',
             webClientUrl: 'https://businesscentral.dynamics.com/tenant-id/ChemicalsSandbox',
           },
         ];
@@ -240,9 +244,9 @@ export class BusinessCentralClient {
             status: 'Open',
             currencyId: 'usd',
             currencyCode: 'USD',
-            amountExcludingTax: 1000.00,
-            taxAmount: 100.00,
-            amountIncludingTax: 1100.00,
+            amountExcludingTax: 1000.0,
+            taxAmount: 100.0,
+            amountIncludingTax: 1100.0,
             lastModifiedDateTime: '2024-01-01T00:00:00Z',
           },
         ];
@@ -260,8 +264,8 @@ export class BusinessCentralClient {
             description: 'Purchase receipt entry',
             locationCode: 'MAIN',
             quantity: 100,
-            unitCost: 10.00,
-            costAmount: 1000.00,
+            unitCost: 10.0,
+            costAmount: 1000.0,
             lastModifiedDateTime: '2024-01-01T00:00:00Z',
           },
         ];

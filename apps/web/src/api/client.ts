@@ -2,8 +2,7 @@
  * API client configuration
  */
 
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { getConfig } from '@cronusapp/shared';
+import axios, { AxiosInstance } from 'axios';
 import { getApiBaseUrl } from '../config/github-pages';
 
 // Create axios instance
@@ -17,19 +16,19 @@ const apiClient: AxiosInstance = axios.create({
 
 // Request interceptor
 apiClient.interceptors.request.use(
-  (config) => {
+  config => {
     // Add any auth headers here if needed
     return config;
   },
-  (error) => {
+  error => {
     return Promise.reject(error);
-  }
+  },
 );
 
 // Response interceptor
 apiClient.interceptors.response.use(
-  (response) => response,
-  (error) => {
+  response => response,
+  error => {
     // Handle common errors
     if (error.response?.status === 401) {
       // Handle unauthorized access
@@ -41,9 +40,9 @@ apiClient.interceptors.response.use(
       // Handle server errors
       console.error('Server error:', error.response?.data);
     }
-    
+
     return Promise.reject(error);
-  }
+  },
 );
 
 export default apiClient;

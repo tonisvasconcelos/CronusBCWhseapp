@@ -47,7 +47,16 @@ export interface ItemLedgerEntry {
   itemId: string;
   itemNumber: string;
   postingDate: string;
-  entryType: 'Purchase' | 'Sale' | 'Positive_Adjmt' | 'Negative_Adjmt' | 'Transfer' | 'Consumption' | 'Output' | 'Assembly_Consumption' | 'Assembly_Output';
+  entryType:
+    | 'Purchase'
+    | 'Sale'
+    | 'Positive_Adjmt'
+    | 'Negative_Adjmt'
+    | 'Transfer'
+    | 'Consumption'
+    | 'Output'
+    | 'Assembly_Consumption'
+    | 'Assembly_Output';
   documentType: string;
   documentNumber: string;
   description: string;
@@ -147,7 +156,7 @@ export interface ApiError {
   error: {
     code: string;
     message: string;
-    details?: any;
+    details?: unknown;
     traceId?: string;
   };
 }
