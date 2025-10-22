@@ -9,13 +9,13 @@ vi.mock('../auth/msal', () => ({
   msalInstance: {
     initialize: vi.fn(),
     initializeWrapperLibrary: vi.fn(),
-    getLogger: vi.fn(() => ({
+    getLogger: vi.fn().mockReturnValue({
       error: vi.fn(),
       warning: vi.fn(),
       info: vi.fn(),
       verbose: vi.fn(),
       clone: vi.fn(),
-    })),
+    }),
     addEventCallback: vi.fn(),
     removeEventCallback: vi.fn(),
     enableAccountStorageEvents: vi.fn(),
