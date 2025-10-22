@@ -3,7 +3,7 @@
  */
 
 import { ClientSecretCredential } from '@azure/identity';
-import { config } from '../config.js';
+import { config } from '../config';
 
 export class TokenProvider {
   private credential: ClientSecretCredential;
@@ -14,7 +14,7 @@ export class TokenProvider {
     this.credential = new ClientSecretCredential(
       config.AZURE_AD_TENANT_ID,
       config.AZURE_AD_CLIENT_ID_API,
-      config.AZURE_AD_CLIENT_SECRET_API
+      config.AZURE_AD_CLIENT_SECRET_API,
     );
   }
 
@@ -30,7 +30,7 @@ export class TokenProvider {
     try {
       // Request a new token
       const tokenResponse = await this.credential.getToken(
-        'https://api.businesscentral.dynamics.com/.default'
+        'https://api.businesscentral.dynamics.com/.default',
       );
 
       if (!tokenResponse) {
@@ -44,7 +44,9 @@ export class TokenProvider {
       return this.cachedToken;
     } catch (error) {
       console.error('Error obtaining access token:', error);
-      throw new Error(`Authentication failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Authentication failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      );
     }
   }
 
