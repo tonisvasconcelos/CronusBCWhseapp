@@ -43,18 +43,18 @@ jobs:
       - name: Build (apps/web)
         working-directory: apps/web
         env:
-          # Use GitHub Secrets for production, fallback to demo values
-          VITE_BC_TENANT_ID: ${{ secrets.BC_TENANT_ID || 'demo-tenant' }}
-          VITE_BC_ENVIRONMENT: ${{ secrets.BC_ENVIRONMENT || 'demo-environment' }}
-          VITE_BC_COMPANY_ID: ${{ secrets.BC_COMPANY_ID || 'demo-company' }}
-          VITE_BC_BASE_URL: ${{ secrets.BC_BASE_URL || 'https://api.businesscentral.dynamics.com/v2.0' }}
-          VITE_AZURE_AD_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID || 'demo-tenant-id' }}
-          VITE_AZURE_AD_CLIENT_ID_SPA: ${{ secrets.AZURE_AD_CLIENT_ID_SPA || 'demo-client-id' }}
-          VITE_AZURE_AD_CLIENT_ID_API: ${{ secrets.AZURE_AD_CLIENT_ID_API || 'demo-api-client-id' }}
-          VITE_AZURE_AD_CLIENT_SECRET_API: ${{ secrets.AZURE_AD_CLIENT_SECRET_API || 'demo-secret' }}
-          VITE_APP_NAME: ${{ secrets.VITE_APP_NAME || 'CRONUS WHSE_BC and REACT' }}
-          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL || 'http://localhost:4000' }}
-          VITE_USE_MOCKS: ${{ secrets.VITE_USE_MOCKS || 'true' }}
+          # Use GitHub Secrets for production
+          VITE_BC_TENANT_ID: ${{ secrets.BC_TENANT_ID }}
+          VITE_BC_ENVIRONMENT: ${{ secrets.BC_ENVIRONMENT }}
+          VITE_BC_COMPANY_ID: ${{ secrets.BC_COMPANY_ID }}
+          VITE_BC_BASE_URL: ${{ secrets.BC_BASE_URL }}
+          VITE_AZURE_AD_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
+          VITE_AZURE_AD_CLIENT_ID_SPA: ${{ secrets.AZURE_AD_CLIENT_ID_SPA }}
+          VITE_AZURE_AD_CLIENT_ID_API: ${{ secrets.AZURE_AD_CLIENT_ID_API }}
+          VITE_AZURE_AD_CLIENT_SECRET_API: ${{ secrets.AZURE_AD_CLIENT_SECRET_API }}
+          VITE_APP_NAME: ${{ secrets.VITE_APP_NAME }}
+          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
+          VITE_USE_MOCKS: ${{ secrets.VITE_USE_MOCKS }}
         run: pnpm build
 
       - name: Upload artifact
