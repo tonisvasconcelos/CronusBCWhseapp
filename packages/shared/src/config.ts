@@ -7,19 +7,19 @@ import { z } from 'zod';
 // Environment schema for validation
 const envSchema = z.object({
   // Business Central
-  BC_TENANT_ID: z.string().min(1, 'BC_TENANT_ID is required'),
-  BC_ENVIRONMENT: z.string().min(1, 'BC_ENVIRONMENT is required'),
-  BC_COMPANY_ID: z.string().min(1, 'BC_COMPANY_ID is required'),
+  BC_TENANT_ID: z.string().default('demo-tenant'),
+  BC_ENVIRONMENT: z.string().default('demo-environment'),
+  BC_COMPANY_ID: z.string().default('demo-company'),
   BC_BASE_URL: z
     .string()
     .url('BC_BASE_URL must be a valid URL')
     .default('https://api.businesscentral.dynamics.com/v2.0'),
 
   // Azure AD
-  AZURE_AD_TENANT_ID: z.string().min(1, 'AZURE_AD_TENANT_ID is required'),
-  AZURE_AD_CLIENT_ID_SPA: z.string().min(1, 'AZURE_AD_CLIENT_ID_SPA is required'),
-  AZURE_AD_CLIENT_ID_API: z.string().min(1, 'AZURE_AD_CLIENT_ID_API is required'),
-  AZURE_AD_CLIENT_SECRET_API: z.string().min(1, 'AZURE_AD_CLIENT_SECRET_API is required'),
+  AZURE_AD_TENANT_ID: z.string().default('demo-tenant-id'),
+  AZURE_AD_CLIENT_ID_SPA: z.string().default('demo-client-id'),
+  AZURE_AD_CLIENT_ID_API: z.string().default('demo-api-client-id'),
+  AZURE_AD_CLIENT_SECRET_API: z.string().default('demo-secret'),
 
   // Frontend
   VITE_APP_NAME: z.string().default('CRONUS WHSE_BC and REACT'),
@@ -32,8 +32,8 @@ const envSchema = z.object({
   USE_MOCKS: z
     .string()
     .transform(val => val === 'true')
-    .default('false'),
-  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
+    .default('true'),
+  NODE_ENV: z.enum(['development', 'production', 'test']).default('production'),
 });
 
 // Type for the validated configuration
