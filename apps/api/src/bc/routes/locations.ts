@@ -3,7 +3,7 @@
  */
 
 import { Router } from 'express';
-import { bcClient } from '../bcClient.js';
+import { bcClient } from '../bcClient';
 import type { Location } from '@cronusapp/shared';
 
 const router: Router = Router();

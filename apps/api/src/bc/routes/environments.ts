@@ -3,7 +3,7 @@
  */
 
 import { Router } from 'express';
-import { bcClient } from '../bcClient.js';
+import { bcClient } from '../bcClient';
 
 const router: Router = Router();
 
