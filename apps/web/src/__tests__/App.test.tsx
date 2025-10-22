@@ -8,6 +8,7 @@ import App from '../App';
 vi.mock('../auth/msal', () => ({
   msalInstance: {
     initialize: vi.fn(),
+    initializeWrapperLibrary: vi.fn(),
     getLogger: vi.fn(() => ({
       error: vi.fn(),
       warning: vi.fn(),
@@ -25,7 +26,7 @@ vi.mock('../auth/msal', () => ({
     getAllAccounts: vi.fn(),
     setActiveAccount: vi.fn(),
   },
-  initializeMsal: vi.fn(),
+  initializeMsal: vi.fn().mockResolvedValue(undefined),
 }));
 
 // Mock React Query
