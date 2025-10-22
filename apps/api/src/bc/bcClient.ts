@@ -4,7 +4,7 @@
 
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { getConfig, buildBcApiUrl } from '@cronusapp/shared';
-import { tokenProvider } from '../auth/tokenProvider.js';
+import { tokenProvider } from '../auth/tokenProvider';
 import type { ApiResponse, ApiError } from '@cronusapp/shared';
 
 export class BusinessCentralClient {
